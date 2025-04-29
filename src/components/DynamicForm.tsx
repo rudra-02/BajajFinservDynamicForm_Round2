@@ -12,7 +12,7 @@ interface DynamicFormProps {
     version: string;
     sections: FormSection[];
   };
-  onSubmit: (formValues: Record<string, any>) => void;
+  onSubmit: (formValues: FormData) => void;
 }
 
 export default function DynamicForm({ formData, onSubmit }: DynamicFormProps) {
@@ -24,7 +24,7 @@ export default function DynamicForm({ formData, onSubmit }: DynamicFormProps) {
   const currentSection = formData.sections[currentSectionIndex];
   const isLastSection = currentSectionIndex === formData.sections.length - 1;
 
-  const validateField = (field: FormField, value: any): string => {
+  const validateField = (field: FormField, value: string | number | boolean | string[]): string => {
     if (field.required && (!value || (Array.isArray(value) && value.length === 0))) {
       return field.validation?.message || 'This field is required';
     }
@@ -57,10 +57,10 @@ export default function DynamicForm({ formData, onSubmit }: DynamicFormProps) {
     return isValid;
   };
 
-  const handleFieldChange = (fieldId: string, value: any) => {
+  const handleFieldChange = (fieldId: string, value: string | number | boolean | string[]) => {
     setValues(prev => ({
       ...prev,
-      [fieldId]: value
+      [fieldId]: typeof value === 'number' ? value.toString() : value
     }));
 
     // Clear error when field is changed

@@ -4,8 +4,8 @@ import { FormField } from '../types';
 
 interface FormFieldComponentProps {
   field: FormField;
-  value: any;
-  onChange: (value: any) => void;
+  value: string | boolean | string[] | undefined;
+  onChange: (value: string | boolean | string[]) => void;
   error?: string;
 }
 
@@ -51,7 +51,7 @@ export default function FormFieldComponent({ field, value, onChange, error }: Fo
             type={field.type}
             id={field.fieldId}
             name={field.fieldId}
-            value={value || ''}
+            value={typeof value === 'boolean' ? value.toString() : (value || '')}
             onChange={handleChange}
             placeholder={field.placeholder}
             className={inputClasses}
@@ -67,7 +67,7 @@ export default function FormFieldComponent({ field, value, onChange, error }: Fo
           <textarea
             id={field.fieldId}
             name={field.fieldId}
-            value={value || ''}
+            value={typeof value === 'boolean' ? value.toString() : (value as string) || ''}
             onChange={handleChange}
             placeholder={field.placeholder}
             className={inputClasses}
@@ -84,7 +84,7 @@ export default function FormFieldComponent({ field, value, onChange, error }: Fo
           <select
             id={field.fieldId}
             name={field.fieldId}
-            value={value || ''}
+            value={typeof value === 'boolean' ? value.toString() : (value as string) || ''}
             onChange={handleChange}
             className={inputClasses}
             data-testid={field.dataTestId}
