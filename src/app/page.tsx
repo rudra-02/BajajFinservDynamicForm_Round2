@@ -35,19 +35,8 @@ export default function Home() {
     }
   };
 
-  const handleFormSubmit = async (formValues: FormData) => {
-    try {
-      // You can add an API call here to submit the form data
-      console.log('Form submitted with values:', formValues);
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      return true;
-    } catch (error) {
-      console.error('Form submission error:', error);
-      throw error;
-    }
+  const handleFormSubmit = (formValues: import('../types').FormData) => {
+    console.log('Form submitted with values:', formValues);
   };
 
   return (
